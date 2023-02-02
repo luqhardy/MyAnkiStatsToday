@@ -1,0 +1,421 @@
+<center>
+<style>
+h1 { margin-bottom: 0; margin-top: 1em; }
+.pielabel { text-align:center; padding:0px; color:white; }
+body:not(.night_mode) {background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAANCAMAAACTkM4rAAAAM1BMVEXy8vLz8/P5+fn19fXt7e329vb4+Pj09PTv7+/u7u739/fw8PD7+/vx8fHr6+v6+vrs7Oz2LjW2AAAAkUlEQVR42g3KyXHAQAwDQYAQj12ItvOP1qqZZwMMPVnd06XToQvz4L2HDQ2iRgkvA7yPPB+JD+OUPnfzZ0JNZh6kkQus5NUmR7g4Jpxv5XN6nYWNmtlq9o3zuK6w3XRsE1pQIEGPIsdtTP3m2cYwlPv6MbL8/QASsKppZefyDmJPbxvxa/NrX1TJ1yp20fhj9D+SiAWWLU8myQAAAABJRU5ErkJggg==
+); }
+@media print {
+    .section { page-break-inside: avoid; padding-top: 5mm; }
+}
+body { direction: ltr !important; }
+</style>
+<div class=section><h1>Today</h1>Studied ⁨498⁩ cards
+⁨in ⁨1.1⁩ hours⁩ today
+(⁨7.96⁩s/card)<br>Again count: <b>150</b> (<b>69.9%</b> correct)<br>Learn: <b>108</b>, Review: <b>297</b>, Relearn: <b>93</b>, Filtered: <b>0</b><br>Correct answers on mature cards: 50/56 (89.3%)</div><div class=section><h1>Forecast</h1>The number of reviews due in the future.
+<table cellpadding=0 cellspacing=10>
+<tr>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(-90deg) translateY(-85px);
+font-weight: bold;
+">Cards</div></td>
+
+<td>
+<center><div id=dueLegend></div></center>
+<div id="due" style="width:600px; height:200px;"></div>
+</td>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(90deg) translateY(65px);
+font-weight: bold;
+">Cumulative Cards</div></td>
+
+</tr></table>
+<script>
+$(function () {
+    var conf = {"xaxis": {"tickDecimals": 0, "min": -0.5, "max": 30.5}, "yaxes": [{"min": 0}, {"min": 0, "tickDecimals": 0, "position": "right"}], "legend": {"container": "#dueLegend", "noColumns": 10}, "series": {"stack": true, "bars": {"show": true, "barWidth": 0.8, "align": "center", "fill": 0.7, "lineWidth": 0}}, "yaxis": {"labelWidth": 40}, "timeTicks": "d"};
+    if (conf.timeTicks) {
+        conf.xaxis.tickFormatter = function (val, axis) {
+            return val.toFixed(0)+conf.timeTicks;
+        }
+    }
+    conf.yaxis.minTickSize = 1;
+    // prevent ticks from having decimals (use whole numbers instead)
+    conf.yaxis.tickDecimals = 0;
+    conf.yaxis.tickFormatter = function (val, axis) {
+            // Just in case we get ticks with decimals, render to one decimal position.  If it's
+            // a whole number then render without any decimal (i.e. without the trailing .0).
+            return val === Math.round(val) ? val.toFixed(0) : val.toFixed(1);
+    }
+    if (conf.series.pie) {
+        conf.series.pie.label.formatter = function(label, series){
+            return '<div class=pielabel>'+Math.round(series.percent)+'%</div>';
+        };
+    }
+    $.plot($("#due"), [{"data": [[1, 46], [2, 19], [3, 35], [4, 33], [5, 34], [6, 39], [7, 31], [8, 36], [9, 37], [10, 35], [11, 39], [12, 34], [13, 44], [14, 35], [15, 36], [16, 30], [17, 40], [18, 34], [19, 48], [20, 39], [21, 53], [22, 51], [23, 52], [24, 38], [25, 48], [26, 36], [27, 45], [28, 39], [29, 31], [30, 31]], "color": "#5ccc00", "label": "Mature"}, {"data": [[1, 173], [2, 80], [3, 113], [4, 66], [5, 63], [6, 45], [7, 44], [8, 27], [9, 18], [10, 32], [11, 30], [12, 25], [13, 18], [14, 21], [15, 15], [16, 16], [17, 8], [18, 6], [19, 4], [20, 2], [21, 0], [22, 0], [23, 0], [24, 0], [25, 0], [26, 0], [27, 0], [28, 0], [29, 0], [30, 0]], "color": "#7c7", "label": "Young"}, {"data": [[1, 219], [2, 318], [3, 466], [4, 565], [5, 662], [6, 746], [7, 821], [8, 884], [9, 939], [10, 1006], [11, 1075], [12, 1134], [13, 1196], [14, 1252], [15, 1303], [16, 1349], [17, 1397], [18, 1437], [19, 1489], [20, 1530], [21, 1583], [22, 1634], [23, 1686], [24, 1724], [25, 1772], [26, 1808], [27, 1853], [28, 1892], [29, 1923], [30, 1954]], "color": "rgba(0,0,0,0.9)", "label": "Cumulative", "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": false}], conf);
+});
+</script><table width=400><tr><td width=200 align=right>Total:</td><td><b>⁨1954⁩ reviews</b></td></tr><tr><td width=200 align=right>Average:</td><td><b>65.1 reviews/day</b></td></tr><tr><td width=200 align=right>Due tomorrow:</td><td><b>219 cards</b></td></tr></table>
+<script type="text/javascript" src="/_addons/1771074083/web/d3.min.js"></script>
+<script type="text/javascript" src="/_addons/1771074083/web/anki-review-heatmap.js"></script>
+
+<script>
+var rhPlatform = "win";
+var rhNewFinderAPI = false;
+</script>
+
+<div class="rh-container rh-platform-win rh-theme-olive rh-mode-year rh-view-stats">
+
+<div class="heatmap">
+    <div class="heatmap-controls">
+        <div class="alignleft">
+            <span>&nbsp;</span>
+        </div>
+        <div class="aligncenter">
+            <div title="Go back
+(Shift-click for first year)" onclick="reviewHeatmap.onHmNavigate(event, this, 'prev');" class="hm-btn">
+                <img height="10px" src="/_addons/1771074083/web/assets/left.svg" />
+            </div>
+            <div title="Today" onclick="reviewHeatmap.onHmHome(event, this);" class="hm-btn">
+                <img height="10px" src="/_addons/1771074083/web/assets/circle.svg" />
+            </div>
+            <div title="Go forward
+(Shift-click for last year)" onclick="reviewHeatmap.onHmNavigate(event, this, 'next');" class="hm-btn">
+                <img height="10px" src="/_addons/1771074083/web/assets/right.svg" />
+            </div>
+        </div>
+        <div class="alignright">
+            <div class="hm-btn opts-btn" title="Options" onclick="reviewHeatmap.onHmOpts(event, this);">
+                <img src="/_addons/1771074083/web/assets/options.svg" />
+            </div>
+            <div class="hm-btn opts-btn" title="Support this add-on" onclick="reviewHeatmap.onHmContrib(event, this);">
+                <img src="/_addons/1771074083/web/assets/heart_bw.svg" />
+            </div>
+        </div>
+        <div style="clear: both;">&nbsp;</div>
+    </div>
+    <div id="cal-heatmap"></div>
+</div>
+<script type="text/javascript">
+    window.reviewHeatmap = new ReviewHeatmap({"domain": "year", "subdomain": "day", "range": 1, "domLabForm": "%Y", "start": 1672617600000, "stop": 1677888000000, "today": 1675296000000, "offset": 4, "legend": [-1584.0, -792.0, -594.0, -495.0, -396.0, -297.0, -198.0, -99.0, -49.5, 0.0, 49.5, 99.0, 198.0, 297.0, 396.0, 495.0, 594.0, 792.0, 1584.0], "whole": false});
+    reviewHeatmap.create({"1672617600": 509, "1672704000": 469, "1672790400": 369, "1672876800": 464, "1672963200": 465, "1673049600": 529, "1673136000": 123, "1673222400": 241, "1673308800": 536, "1673395200": 604, "1673481600": 470, "1673568000": 217, "1673654400": 144, "1673740800": 878, "1673827200": 229, "1673913600": 195, "1674000000": 572, "1674086400": 916, "1674172800": 315, "1674259200": 112, "1674345600": 661, "1674432000": 430, "1674518400": 299, "1674604800": 182, "1674691200": 387, "1674777600": 479, "1674864000": 269, "1674950400": 358, "1675036800": 226, "1675123200": 359, "1675209600": 152, "1675296000": 498, "1675382400": -219, "1675468800": -99, "1675555200": -148, "1675641600": -99, "1675728000": -97, "1675814400": -84, "1675900800": -75, "1675987200": -63, "1676073600": -55, "1676160000": -67, "1676246400": -69, "1676332800": -59, "1676419200": -62, "1676505600": -56, "1676592000": -51, "1676678400": -46, "1676764800": -48, "1676851200": -40, "1676937600": -52, "1677024000": -41, "1677110400": -53, "1677196800": -51, "1677283200": -52, "1677369600": -38, "1677456000": -48, "1677542400": -36, "1677628800": -45, "1677715200": -39, "1677801600": -31, "1677888000": -31});
+</script>
+
+<div class="streak">
+    <span class="streak-info">Daily average:</span>
+    <span title="Average reviews on active days"
+        class="sstats rh-col15">396 cards</span>
+    <span class="streak-info">Days learned:</span>
+    <span title="Percentage of days with review activity over entire review history"
+        class="sstats rh-col19">100%</span>
+    <span class="streak-info">Longest streak:</span>
+    <span title="Longest continuous streak of review activity. All types of repetitions included."
+        class="sstats rh-col16">32 days</span>
+    <span class="streak-info">Current streak:</span>
+    <span title="Current card review activity streak. All types of repetitions included."
+        class="sstats rh-col16">32 days</span>
+</div>
+
+</div>
+</div><div class=section><h1>Review Count</h1>The number of questions you have answered.
+<table cellpadding=0 cellspacing=10>
+<tr>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(-90deg) translateY(-85px);
+font-weight: bold;
+">Answers</div></td>
+
+<td>
+<center><div id=repsLegend></div></center>
+<div id="reps" style="width:600px; height:200px;"></div>
+</td>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(90deg) translateY(65px);
+font-weight: bold;
+">Cumulative Answers</div></td>
+
+</tr></table>
+<script>
+$(function () {
+    var conf = {"xaxis": {"tickDecimals": 0, "max": 0.5, "min": -30.5}, "yaxes": [{"min": 0}, {"position": "right", "min": 0}], "legend": {"container": "#repsLegend", "noColumns": 10}, "series": {"stack": true, "bars": {"show": true, "barWidth": 0.8, "align": "center", "fill": 0.7, "lineWidth": 0}}, "yaxis": {"labelWidth": 40}, "timeTicks": "d"};
+    if (conf.timeTicks) {
+        conf.xaxis.tickFormatter = function (val, axis) {
+            return val.toFixed(0)+conf.timeTicks;
+        }
+    }
+    conf.yaxis.minTickSize = 1;
+    // prevent ticks from having decimals (use whole numbers instead)
+    conf.yaxis.tickDecimals = 0;
+    conf.yaxis.tickFormatter = function (val, axis) {
+            // Just in case we get ticks with decimals, render to one decimal position.  If it's
+            // a whole number then render without any decimal (i.e. without the trailing .0).
+            return val === Math.round(val) ? val.toFixed(0) : val.toFixed(1);
+    }
+    if (conf.series.pie) {
+        conf.series.pie.label.formatter = function(label, series){
+            return '<div class=pielabel>'+Math.round(series.percent)+'%</div>';
+        };
+    }
+    $.plot($("#reps"), [{"data": [[-30, 44], [-29, 27], [-28, 24], [-27, 17], [-26, 21], [-25, 5], [-24, 12], [-23, 41], [-22, 34], [-21, 28], [-20, 3], [-19, 3], [-18, 53], [-17, 13], [-16, 11], [-15, 47], [-14, 79], [-13, 19], [-12, 0], [-11, 80], [-10, 17], [-9, 25], [-8, 8], [-7, 35], [-6, 55], [-5, 29], [-4, 26], [-3, 15], [-2, 44], [-1, 8], [0, 56]], "color": "#5ccc00", "label": "Mature"}, {"data": [[-30, 44.0], [-29, 71.0], [-28, 95.0], [-27, 112.0], [-26, 133.0], [-25, 138.0], [-24, 150.0], [-23, 191.0], [-22, 225.0], [-21, 253.0], [-20, 256.0], [-19, 259.0], [-18, 312.0], [-17, 325.0], [-16, 336.0], [-15, 383.0], [-14, 462.0], [-13, 481.0], [-12, 481.0], [-11, 561.0], [-10, 578.0], [-9, 603.0], [-8, 611.0], [-7, 646.0], [-6, 701.0], [-5, 730.0], [-4, 756.0], [-3, 771.0], [-2, 815.0], [-1, 823.0], [0, 879.0]], "color": "#5ccc00", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -3}, {"data": [[-30, 187], [-29, 203], [-28, 243], [-27, 228], [-26, 175], [-25, 19], [-24, 94], [-23, 283], [-22, 270], [-21, 211], [-20, 62], [-19, 12], [-18, 297], [-17, 62], [-16, 65], [-15, 215], [-14, 313], [-13, 132], [-12, 19], [-11, 387], [-10, 217], [-9, 121], [-8, 54], [-7, 148], [-6, 255], [-5, 134], [-4, 149], [-3, 94], [-2, 201], [-1, 52], [0, 241]], "color": "#7c7", "label": "Young"}, {"data": [[-30, 187.0], [-29, 390.0], [-28, 633.0], [-27, 861.0], [-26, 1036.0], [-25, 1055.0], [-24, 1149.0], [-23, 1432.0], [-22, 1702.0], [-21, 1913.0], [-20, 1975.0], [-19, 1987.0], [-18, 2284.0], [-17, 2346.0], [-16, 2411.0], [-15, 2626.0], [-14, 2939.0], [-13, 3071.0], [-12, 3090.0], [-11, 3477.0], [-10, 3694.0], [-9, 3815.0], [-8, 3869.0], [-7, 4017.0], [-6, 4272.0], [-5, 4406.0], [-4, 4555.0], [-3, 4649.0], [-2, 4850.0], [-1, 4902.0], [0, 5143.0]], "color": "#7c7", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -2}, {"data": [[-30, 165], [-29, 58], [-28, 100], [-27, 39], [-26, 121], [-25, 13], [-24, 26], [-23, 85], [-22, 105], [-21, 65], [-20, 5], [-19, 8], [-18, 121], [-17, 25], [-16, 23], [-15, 50], [-14, 178], [-13, 24], [-12, 27], [-11, 90], [-10, 66], [-9, 41], [-8, 23], [-7, 42], [-6, 76], [-5, 27], [-4, 20], [-3, 10], [-2, 40], [-1, 4], [0, 93]], "color": "#ff935b", "label": "Relearn"}, {"data": [[-30, 165.0], [-29, 223.0], [-28, 323.0], [-27, 362.0], [-26, 483.0], [-25, 496.0], [-24, 522.0], [-23, 607.0], [-22, 712.0], [-21, 777.0], [-20, 782.0], [-19, 790.0], [-18, 911.0], [-17, 936.0], [-16, 959.0], [-15, 1009.0], [-14, 1187.0], [-13, 1211.0], [-12, 1238.0], [-11, 1328.0], [-10, 1394.0], [-9, 1435.0], [-8, 1458.0], [-7, 1500.0], [-6, 1576.0], [-5, 1603.0], [-4, 1623.0], [-3, 1633.0], [-2, 1673.0], [-1, 1677.0], [0, 1770.0]], "color": "#ff935b", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -4}, {"data": [[-30, 73], [-29, 81], [-28, 97], [-27, 181], [-26, 212], [-25, 86], [-24, 109], [-23, 127], [-22, 195], [-21, 166], [-20, 147], [-19, 121], [-18, 407], [-17, 129], [-16, 96], [-15, 260], [-14, 346], [-13, 140], [-12, 66], [-11, 104], [-10, 130], [-9, 118], [-8, 97], [-7, 162], [-6, 93], [-5, 79], [-4, 163], [-3, 107], [-2, 74], [-1, 88], [0, 108]], "color": "#77ccff", "label": "Learn"}, {"data": [[-30, 73.0], [-29, 154.0], [-28, 251.0], [-27, 432.0], [-26, 644.0], [-25, 730.0], [-24, 839.0], [-23, 966.0], [-22, 1161.0], [-21, 1327.0], [-20, 1474.0], [-19, 1595.0], [-18, 2002.0], [-17, 2131.0], [-16, 2227.0], [-15, 2487.0], [-14, 2833.0], [-13, 2973.0], [-12, 3039.0], [-11, 3143.0], [-10, 3273.0], [-9, 3391.0], [-8, 3488.0], [-7, 3650.0], [-6, 3743.0], [-5, 3822.0], [-4, 3985.0], [-3, 4092.0], [-2, 4166.0], [-1, 4254.0], [0, 4362.0]], "color": "#77ccff", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -1}], conf);
+});
+</script><table width=400><tr><td width=200 align=right>Days studied:</td><td><b>100%</b> (31 of 31)</td></tr><tr><td width=200 align=right>Total:</td><td><b>12154 reviews</b></td></tr><tr><td width=200 align=right>Average for days studied:</td><td><b>392.1 reviews/day</b></td></tr></table></div><div class=section><h1>Review Time</h1>The time taken to answer the questions.
+<table cellpadding=0 cellspacing=10>
+<tr>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(-90deg) translateY(-85px);
+font-weight: bold;
+">Minutes</div></td>
+
+<td>
+<center><div id=timeLegend></div></center>
+<div id="time" style="width:600px; height:200px;"></div>
+</td>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(90deg) translateY(65px);
+font-weight: bold;
+">Cumulative Minutes</div></td>
+
+</tr></table>
+<script>
+$(function () {
+    var conf = {"xaxis": {"tickDecimals": 0, "max": 0.5, "min": -30.5}, "yaxes": [{"min": 0}, {"position": "right", "min": 0}], "legend": {"container": "#timeLegend", "noColumns": 10}, "series": {"stack": true, "bars": {"show": true, "barWidth": 0.8, "align": "center", "fill": 0.7, "lineWidth": 0}}, "yaxis": {"labelWidth": 40}, "timeTicks": "d"};
+    if (conf.timeTicks) {
+        conf.xaxis.tickFormatter = function (val, axis) {
+            return val.toFixed(0)+conf.timeTicks;
+        }
+    }
+    conf.yaxis.minTickSize = 1;
+    // prevent ticks from having decimals (use whole numbers instead)
+    conf.yaxis.tickDecimals = 0;
+    conf.yaxis.tickFormatter = function (val, axis) {
+            // Just in case we get ticks with decimals, render to one decimal position.  If it's
+            // a whole number then render without any decimal (i.e. without the trailing .0).
+            return val === Math.round(val) ? val.toFixed(0) : val.toFixed(1);
+    }
+    if (conf.series.pie) {
+        conf.series.pie.label.formatter = function(label, series){
+            return '<div class=pielabel>'+Math.round(series.percent)+'%</div>';
+        };
+    }
+    $.plot($("#time"), [{"data": [[-30, 2.750466666666666], [-29, 4.54375], [-28, 3.1353999999999997], [-27, 3.4173666666666667], [-26, 1.6760833333333336], [-25, 1.2164333333333335], [-24, 1.5567], [-23, 4.182316666666667], [-22, 2.911500000000001], [-21, 2.5984999999999996], [-20, 0.41433333333333333], [-19, 0.1476833333333333], [-18, 5.297083333333332], [-17, 1.23895], [-16, 1.9403666666666666], [-15, 3.5362166666666663], [-14, 8.001116666666666], [-13, 1.2846166666666667], [-12, 0.0], [-11, 10.5254], [-10, 1.5627666666666669], [-9, 4.472433333333333], [-8, 0.9932166666666666], [-7, 4.58765], [-6, 5.5461833333333335], [-5, 2.8759499999999987], [-4, 4.18955], [-3, 1.0091833333333333], [-2, 5.900850000000002], [-1, 0.8693333333333334], [0, 8.628150000000002]], "color": "#5ccc00", "label": "Mature"}, {"data": [[-30, 2.750466666666666], [-29, 7.294216666666666], [-28, 10.429616666666666], [-27, 13.846983333333332], [-26, 15.523066666666665], [-25, 16.7395], [-24, 18.2962], [-23, 22.478516666666664], [-22, 25.390016666666664], [-21, 27.988516666666662], [-20, 28.402849999999994], [-19, 28.550533333333327], [-18, 33.84761666666666], [-17, 35.08656666666666], [-16, 37.02693333333333], [-15, 40.56315], [-14, 48.56426666666667], [-13, 49.84888333333333], [-12, 49.84888333333333], [-11, 60.37428333333333], [-10, 61.93705], [-9, 66.40948333333333], [-8, 67.4027], [-7, 71.99034999999999], [-6, 77.53653333333332], [-5, 80.41248333333333], [-4, 84.60203333333332], [-3, 85.61121666666666], [-2, 91.51206666666667], [-1, 92.3814], [0, 101.00955]], "color": "#5ccc00", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -8}, {"data": [[-30, 27.367616666666667], [-29, 25.915883333333333], [-28, 38.248366666666655], [-27, 30.65624999999999], [-26, 28.37914999999999], [-25, 3.0670499999999996], [-24, 9.880333333333333], [-23, 32.93486666666669], [-22, 27.01770000000003], [-21, 37.28914999999998], [-20, 4.7583166666666665], [-19, 0.7929833333333334], [-18, 39.93300000000001], [-17, 12.36103333333333], [-16, 5.508633333333335], [-15, 22.942066666666673], [-14, 32.41998333333332], [-13, 13.431650000000001], [-12, 1.3687333333333334], [-11, 55.54491666666673], [-10, 22.639883333333344], [-9, 12.620316666666673], [-8, 11.822649999999998], [-7, 21.480183333333326], [-6, 32.53871666666668], [-5, 14.591500000000002], [-4, 20.715116666666663], [-3, 9.301250000000003], [-2, 25.547483333333332], [-1, 6.810383333333333], [0, 32.826150000000005]], "color": "#7c7", "label": "Young"}, {"data": [[-30, 27.367616666666667], [-29, 53.283500000000004], [-28, 91.53186666666666], [-27, 122.18811666666664], [-26, 150.56726666666663], [-25, 153.63431666666662], [-24, 163.51464999999996], [-23, 196.44951666666665], [-22, 223.46721666666667], [-21, 260.7563666666666], [-20, 265.51468333333327], [-19, 266.3076666666666], [-18, 306.2406666666666], [-17, 318.60169999999994], [-16, 324.11033333333324], [-15, 347.0523999999999], [-14, 379.47238333333325], [-13, 392.90403333333325], [-12, 394.2727666666666], [-11, 449.8176833333333], [-10, 472.45756666666665], [-9, 485.0778833333333], [-8, 496.9005333333333], [-7, 518.3807166666667], [-6, 550.9194333333334], [-5, 565.5109333333334], [-4, 586.22605], [-3, 595.5273], [-2, 621.0747833333332], [-1, 627.8851666666666], [0, 660.7113166666666]], "color": "#7c7", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -7}, {"data": [[-30, 22.737583333333347], [-29, 6.4607833333333335], [-28, 16.582816666666666], [-27, 5.448216666666667], [-26, 15.4176], [-25, 1.5082666666666669], [-24, 7.191016666666666], [-23, 8.5693], [-22, 9.1929], [-21, 8.038516666666666], [-20, 0.5083833333333333], [-19, 0.43221666666666675], [-18, 18.251283333333333], [-17, 1.7785666666666666], [-16, 1.3674666666666666], [-15, 4.972900000000001], [-14, 25.424049999999998], [-13, 2.4569333333333336], [-12, 2.5369666666666664], [-11, 8.357116666666666], [-10, 4.675166666666667], [-9, 4.435550000000001], [-8, 3.5533833333333336], [-7, 5.95806666666667], [-6, 5.08475], [-5, 4.2131], [-4, 2.502766666666667], [-3, 1.5921666666666667], [-2, 4.782800000000001], [-1, 0.32183333333333336], [0, 12.05895]], "color": "#ff935b", "label": "Relearn"}, {"data": [[-30, 22.737583333333347], [-29, 29.19836666666668], [-28, 45.781183333333345], [-27, 51.22940000000001], [-26, 66.64700000000002], [-25, 68.15526666666669], [-24, 75.34628333333336], [-23, 83.91558333333336], [-22, 93.10848333333335], [-21, 101.14700000000002], [-20, 101.65538333333335], [-19, 102.08760000000001], [-18, 120.33888333333334], [-17, 122.11745], [-16, 123.48491666666668], [-15, 128.45781666666667], [-14, 153.88186666666667], [-13, 156.3388], [-12, 158.87576666666666], [-11, 167.23288333333332], [-10, 171.90804999999997], [-9, 176.34359999999998], [-8, 179.8969833333333], [-7, 185.85504999999998], [-6, 190.9398], [-5, 195.1529], [-4, 197.65566666666666], [-3, 199.24783333333332], [-2, 204.03063333333333], [-1, 204.35246666666666], [0, 216.41141666666667]], "color": "#ff935b", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -9}, {"data": [[-30, 12.751583333333336], [-29, 9.908199999999995], [-28, 11.147433333333334], [-27, 20.862216666666658], [-26, 34.118700000000004], [-25, 14.916199999999998], [-24, 10.813233333333336], [-23, 11.047500000000001], [-22, 17.072316666666673], [-21, 19.99856666666666], [-20, 15.539433333333337], [-19, 10.583533333333332], [-18, 39.17648333333333], [-17, 14.116050000000001], [-16, 12.041149999999996], [-15, 24.7542], [-14, 29.62655000000001], [-13, 15.17115000000001], [-12, 5.324483333333334], [-11, 7.460333333333335], [-10, 10.282450000000003], [-9, 11.498450000000002], [-8, 14.520666666666665], [-7, 31.027066666666666], [-6, 11.599000000000002], [-5, 9.408516666666662], [-4, 13.19518333333333], [-3, 7.952750000000004], [-2, 11.20181666666667], [-1, 10.575533333333336], [0, 12.543083333333334]], "color": "#77ccff", "label": "Learn"}, {"data": [[-30, 12.751583333333336], [-29, 22.65978333333333], [-28, 33.80721666666666], [-27, 54.669433333333316], [-26, 88.78813333333332], [-25, 103.70433333333332], [-24, 114.51756666666665], [-23, 125.56506666666665], [-22, 142.63738333333333], [-21, 162.63594999999998], [-20, 178.17538333333331], [-19, 188.75891666666664], [-18, 227.93539999999996], [-17, 242.05144999999996], [-16, 254.09259999999995], [-15, 278.8468], [-14, 308.47335], [-13, 323.6445], [-12, 328.9689833333333], [-11, 336.42931666666664], [-10, 346.7117666666666], [-9, 358.2102166666666], [-8, 372.7308833333333], [-7, 403.75794999999994], [-6, 415.3569499999999], [-5, 424.7654666666666], [-4, 437.96064999999993], [-3, 445.9133999999999], [-2, 457.1152166666666], [-1, 467.6907499999999], [0, 480.2338333333333]], "color": "#77ccff", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -6}], conf);
+});
+</script><table width=400><tr><td width=200 align=right>Days studied:</td><td><b>100%</b> (31 of 31)</td></tr><tr><td width=200 align=right>Total:</td><td><b>1458 minutes</b></td></tr><tr><td width=200 align=right>Average for days studied:</td><td><b>47.0 minutes/day</b></td></tr><tr><td width=200 align=right>Average answer time:</td><td><b>⁨7.2⁩s (⁨8.33⁩ cards/minute)</b></td></tr></table></div><div class=section><h1>Added</h1>The number of new cards you have added.
+<table cellpadding=0 cellspacing=10>
+<tr>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(-90deg) translateY(-85px);
+font-weight: bold;
+">Cards</div></td>
+
+<td>
+<center><div id=introLegend></div></center>
+<div id="intro" style="width:600px; height:200px;"></div>
+</td>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(90deg) translateY(65px);
+font-weight: bold;
+">Cumulative Cards</div></td>
+
+</tr></table>
+<script>
+$(function () {
+    var conf = {"xaxis": {"tickDecimals": 0, "max": 0.5, "min": -30.5}, "yaxes": [{"min": 0}, {"position": "right", "min": 0}], "legend": {"container": "#introLegend", "noColumns": 10}, "series": {"stack": true, "bars": {"show": true, "barWidth": 0.8, "align": "center", "fill": 0.7, "lineWidth": 0}}, "yaxis": {"labelWidth": 40}, "timeTicks": "d"};
+    if (conf.timeTicks) {
+        conf.xaxis.tickFormatter = function (val, axis) {
+            return val.toFixed(0)+conf.timeTicks;
+        }
+    }
+    conf.yaxis.minTickSize = 1;
+    // prevent ticks from having decimals (use whole numbers instead)
+    conf.yaxis.tickDecimals = 0;
+    conf.yaxis.tickFormatter = function (val, axis) {
+            // Just in case we get ticks with decimals, render to one decimal position.  If it's
+            // a whole number then render without any decimal (i.e. without the trailing .0).
+            return val === Math.round(val) ? val.toFixed(0) : val.toFixed(1);
+    }
+    if (conf.series.pie) {
+        conf.series.pie.label.formatter = function(label, series){
+            return '<div class=pielabel>'+Math.round(series.percent)+'%</div>';
+        };
+    }
+    $.plot($("#intro"), [{"data": [[-30, 108], [-29, 25], [-28, 1], [-27, 10], [-25, 1], [-22, 1], [-21, 1], [-18, 21], [-17, 1], [-16, 147], [-15, 4], [-11, 74], [-10, 9], [-9, 43], [-7, 2], [-5, 67], [-4, 1], [-3, 6], [-2, 7], [0, 2], [17214153, 1036]], "color": "#77ccff", "label": ""}, {"data": [[-30, 108.0], [-29, 133.0], [-28, 134.0], [-27, 144.0], [-25, 145.0], [-22, 146.0], [-21, 147.0], [-18, 168.0], [-17, 169.0], [-16, 316.0], [-15, 320.0], [-11, 394.0], [-10, 403.0], [-9, 446.0], [-7, 448.0], [-5, 515.0], [-4, 516.0], [-3, 522.0], [-2, 529.0], [0, 531.0], [17214153, 1567.0]], "color": "#77ccff", "label": null, "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": -1}], conf);
+});
+</script><table width=400><tr><td width=200 align=right>Total:</td><td><b>1567 cards</b></td></tr><tr><td width=200 align=right>Average:</td><td><b>50.5 cards/day</b></td></tr></table></div><div class=section><h1>Intervals</h1>Delays until reviews are shown again.
+<table cellpadding=0 cellspacing=10>
+<tr>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(-90deg) translateY(-85px);
+font-weight: bold;
+">Cards</div></td>
+
+<td>
+<center><div id=ivlLegend></div></center>
+<div id="ivl" style="width:600px; height:200px;"></div>
+</td>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(90deg) translateY(65px);
+font-weight: bold;
+">Percentage</div></td>
+
+</tr></table>
+<script>
+$(function () {
+    var conf = {"xaxis": {"min": -0.5, "max": 31.5}, "yaxes": [{}, {"position": "right", "max": 105}], "legend": {"container": "#ivlLegend", "noColumns": 10}, "series": {"stack": true, "bars": {"show": true, "barWidth": 0.8, "align": "center", "fill": 0.7, "lineWidth": 0}}, "yaxis": {"labelWidth": 40}, "timeTicks": "d"};
+    if (conf.timeTicks) {
+        conf.xaxis.tickFormatter = function (val, axis) {
+            return val.toFixed(0)+conf.timeTicks;
+        }
+    }
+    conf.yaxis.minTickSize = 1;
+    // prevent ticks from having decimals (use whole numbers instead)
+    conf.yaxis.tickDecimals = 0;
+    conf.yaxis.tickFormatter = function (val, axis) {
+            // Just in case we get ticks with decimals, render to one decimal position.  If it's
+            // a whole number then render without any decimal (i.e. without the trailing .0).
+            return val === Math.round(val) ? val.toFixed(0) : val.toFixed(1);
+    }
+    if (conf.series.pie) {
+        conf.series.pie.label.formatter = function(label, series){
+            return '<div class=pielabel>'+Math.round(series.percent)+'%</div>';
+        };
+    }
+    $.plot($("#ivl"), [{"data": [[1, 112], [3, 87], [4, 1], [5, 54], [6, 58], [7, 68], [8, 40], [9, 37], [10, 32], [11, 27], [12, 37], [13, 36], [14, 35], [15, 38], [16, 59], [17, 49], [18, 33], [19, 36], [20, 20], [21, 33], [22, 25], [23, 41], [24, 46], [25, 46], [26, 22], [27, 38], [28, 29], [29, 35], [30, 25], [31, 26]], "color": "#077"}, {"data": [[1, 3.2323232323232323], [3, 5.743145743145743], [4, 5.772005772005772], [5, 7.33044733044733], [6, 9.004329004329005], [7, 10.966810966810966], [8, 12.121212121212121], [9, 13.18903318903319], [10, 14.112554112554113], [11, 14.891774891774892], [12, 15.95959595959596], [13, 16.998556998557], [14, 18.00865800865801], [15, 19.105339105339105], [16, 20.80808080808081], [17, 22.22222222222222], [18, 23.174603174603174], [19, 24.213564213564215], [20, 24.79076479076479], [21, 25.743145743145746], [22, 26.464646464646464], [23, 27.647907647907648], [24, 28.975468975468978], [25, 30.303030303030305], [26, 30.937950937950937], [27, 32.03463203463203], [28, 32.87157287157287], [29, 33.881673881673876], [30, 34.6031746031746], [31, 35.35353535353536]], "color": "rgba(0,0,0,0.9)", "yaxis": 2, "bars": {"show": false}, "lines": {"show": true}, "stack": false}], conf);
+});
+</script><table width=400><tr><td width=200 align=right>Average interval:</td><td><b>⁨2.3⁩ months</b></td></tr><tr><td width=200 align=right>Longest interval:</td><td><b>⁨1⁩ year</b></td></tr></table></div><div class=section><h1>Hourly Breakdown</h1>Review success rate for each hour of the day.
+<table cellpadding=0 cellspacing=10>
+<tr>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(-90deg) translateY(-85px);
+font-weight: bold;
+">% Correct</div></td>
+
+<td>
+<center><div id=hourLegend></div></center>
+<div id="hour" style="width:600px; height:200px;"></div>
+</td>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(90deg) translateY(65px);
+font-weight: bold;
+">Reviews</div></td>
+
+</tr></table>
+<script>
+$(function () {
+    var conf = {"xaxis": {"ticks": [[0, "4AM"], [6, "10AM"], [12, "4PM"], [18, "10PM"], [23, "3AM"]]}, "yaxes": [{"max": 70.53140096618358}, {"position": "right", "max": 1225}], "legend": {"container": "#hourLegend", "noColumns": 10}, "series": {"stack": true, "bars": {"show": true, "barWidth": 0.8, "align": "center", "fill": 0.7, "lineWidth": 0}}, "yaxis": {"labelWidth": 40}, "timeTicks": "d"};
+    if (conf.timeTicks) {
+        conf.xaxis.tickFormatter = function (val, axis) {
+            return val.toFixed(0)+conf.timeTicks;
+        }
+    }
+    conf.yaxis.minTickSize = 1;
+    // prevent ticks from having decimals (use whole numbers instead)
+    conf.yaxis.tickDecimals = 0;
+    conf.yaxis.tickFormatter = function (val, axis) {
+            // Just in case we get ticks with decimals, render to one decimal position.  If it's
+            // a whole number then render without any decimal (i.e. without the trailing .0).
+            return val === Math.round(val) ? val.toFixed(0) : val.toFixed(1);
+    }
+    if (conf.series.pie) {
+        conf.series.pie.label.formatter = function(label, series){
+            return '<div class=pielabel>'+Math.round(series.percent)+'%</div>';
+        };
+    }
+    $.plot($("#hour"), [{"data": [[0, 58.70967741935483], [2, 59.45945945945946], [3, 58.108108108108105], [4, 70.53140096618358], [5, 68.7125748502994], [6, 67.6734693877551], [7, 68.74279123414071], [8, 58.6105675146771], [9, 52.527743526510484], [10, 46.15384615384615], [11, 52.824858757062145], [12, 53.392330383480825], [13, 58.55263157894737], [14, 65.00920810313076], [15, 63.52067868504771], [16, 63.63636363636363], [17, 66.92307692307692], [18, 59.78835978835979], [19, 58.333333333333336], [20, 63.3693972179289], [21, 61.027190332326285], [22, 63.73626373626373]], "color": "rgba(0,0,0,0.9)", "label": "% Correct"}, {"data": [[0, 155], [2, 37], [3, 74], [4, 207], [5, 668], [6, 1225], [7, 867], [8, 1022], [9, 811], [10, 403], [11, 354], [12, 339], [13, 304], [14, 543], [15, 943], [16, 858], [17, 780], [18, 378], [19, 576], [20, 647], [21, 662], [22, 273]], "color": "#ccc", "label": "Answers", "yaxis": 2, "bars": {"barWidth": 0.2}, "stack": false}], conf);
+});
+</script>Hours with less than 30 reviews are not shown.</div><div class=section><h1>Answer Buttons</h1>The number of times you have pressed each button.
+<table cellpadding=0 cellspacing=10>
+<tr>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(-90deg) translateY(-85px);
+font-weight: bold;
+">Answers</div></td>
+
+<td>
+<center><div id=easeLegend></div></center>
+<div id="ease" style="width:600px; height:200px;"></div>
+</td>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(90deg) translateY(65px);
+font-weight: bold;
+"></div></td>
+
+</tr></table>
+<script>
+$(function () {
+    var conf = {"xaxis": {"ticks": [[1, 1], [2, 2], [3, 3], [4, 4], [6, 1], [7, 2], [8, 3], [9, 4], [11, 1], [12, 2], [13, 3], [14, 4]], "min": 0, "max": 15}, "legend": {"container": "#easeLegend", "noColumns": 10}, "series": {"stack": true, "bars": {"show": true, "barWidth": 0.8, "align": "center", "fill": 0.7, "lineWidth": 0}}, "yaxis": {"labelWidth": 40}, "timeTicks": "d"};
+    if (conf.timeTicks) {
+        conf.xaxis.tickFormatter = function (val, axis) {
+            return val.toFixed(0)+conf.timeTicks;
+        }
+    }
+    conf.yaxis.minTickSize = 1;
+    // prevent ticks from having decimals (use whole numbers instead)
+    conf.yaxis.tickDecimals = 0;
+    conf.yaxis.tickFormatter = function (val, axis) {
+            // Just in case we get ticks with decimals, render to one decimal position.  If it's
+            // a whole number then render without any decimal (i.e. without the trailing .0).
+            return val === Math.round(val) ? val.toFixed(0) : val.toFixed(1);
+    }
+    if (conf.series.pie) {
+        conf.series.pie.label.formatter = function(label, series){
+            return '<div class=pielabel>'+Math.round(series.percent)+'%</div>';
+        };
+    }
+    $.plot($("#ease"), [{"data": [[1, 3742], [3, 2390]], "color": "#77ccff", "label": "Learning"}, {"data": [[6, 816], [7, 1], [8, 4326]], "color": "#7c7", "label": "Young"}, {"data": [[11, 71], [13, 808]], "color": "#5ccc00", "label": "Mature"}], conf);
+});
+</script>
+<center><table width=600px><tr><td width=50></td><td align=center>Correct: <b>38.98%</b><br>(2390 of 6132)</td><td align=center>Correct: <b>84.13%</b><br>(4327 of 5143)</td><td align=center>Correct: <b>91.92%</b><br>(808 of 879)</td></tr></table></center></div><div class=section><h1>Card Types</h1>The division of cards in your deck(s).<table width=600><tr><td>
+<table cellpadding=0 cellspacing=10>
+<tr>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(-90deg) translateY(-85px);
+font-weight: bold;
+"></div></td>
+
+<td>
+<center><div id=cardsLegend></div></center>
+<div id="cards" style="width:260px; height:300px;"></div>
+</td>
+
+<td><div style="width: 150px; text-align: center; position:absolute;
+ -webkit-transform: rotate(90deg) translateY(65px);
+font-weight: bold;
+"></div></td>
+
+</tr></table>
+<script>
+$(function () {
+    var conf = {"legend": {"container": "#cardsLegend", "noColumns": 2}, "series": {"stack": true, "pie": {"show": true, "radius": 1, "stroke": {"color": "#fff", "width": 5}, "label": {"show": true, "radius": 0.8, "threshold": 0.01, "background": {"opacity": 0.5, "color": "#000"}}}}, "yaxis": {"labelWidth": 40}, "xaxis": {}, "timeTicks": "d"};
+    if (conf.timeTicks) {
+        conf.xaxis.tickFormatter = function (val, axis) {
+            return val.toFixed(0)+conf.timeTicks;
+        }
+    }
+    conf.yaxis.minTickSize = 1;
+    // prevent ticks from having decimals (use whole numbers instead)
+    conf.yaxis.tickDecimals = 0;
+    conf.yaxis.tickFormatter = function (val, axis) {
+            // Just in case we get ticks with decimals, render to one decimal position.  If it's
+            // a whole number then render without any decimal (i.e. without the trailing .0).
+            return val === Math.round(val) ? val.toFixed(0) : val.toFixed(1);
+    }
+    if (conf.series.pie) {
+        conf.series.pie.label.formatter = function(label, series){
+            return '<div class=pielabel>'+Math.round(series.percent)+'%</div>';
+        };
+    }
+    $.plot($("#cards"), [{"data": 2606, "label": "Mature: 2606", "color": "#5ccc00"}, {"data": 894, "label": "Young+Learn: 894", "color": "#7c7"}, {"data": 15407, "label": "Unseen: 15407", "color": "#000"}, {"data": 6044, "label": "Suspended+Buried: 6044", "color": "#aaaa33"}], conf);
+});
+</script></td><td><table width=100%><tr><td width=200 align=right>Total cards:</td><td><b>24951</b></td></tr><tr><td width=200 align=right>Total notes:</td><td><b>23603</b></td></tr><tr><td width=200 align=right>Lowest ease:</td><td><b>130%</b></td></tr><tr><td width=200 align=right>Average ease:</td><td><b>243%</b></td></tr><tr><td width=200 align=right>Highest ease:</td><td><b>250%</b></td></tr></table><p>A card's <i>ease</i> is the size of the next interval when you answer "good" on a review.</td></table></div><div class=section><br><br><font size=1>Generated on Thu Feb  2 18:14:59 2023<br>Scope: whole collection<br>Period: 1 month</div></center>
